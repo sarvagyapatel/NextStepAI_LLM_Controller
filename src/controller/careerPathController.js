@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 
 const generateCareerPath = (message, ws) => {
   try {
-    const process = spawn("bash", ["-c", "ollama run gemma2:9b"]);
+    const process = spawn("bash", ["-c", "ollama run gemma2:2b"]);
 
     // Buffer to accumulate the stdout data
     let stdoutBuffer = "";

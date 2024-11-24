@@ -5,6 +5,7 @@ import cors from 'cors';
 import { generateAptitudeQuestions, generateSkillQuestions } from './controller/questionsController.js';
 import { generateCareerPath } from './controller/careerPathController.js';
 import { evaluateAnswers } from './controller/evaluationController.js';
+import { chatController } from './controller/chatController.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -23,12 +24,17 @@ wss.on('connection', (ws) => {
         const data = JSON.parse(message);
         if(data.type==='generateCareerPath'){
             generateCareerPath(data.content, ws);
-        }else if(data.type==='generateAptitudeQuestions'){
+        }else if(data.type==='generateaptitudeQuestions'){
+            console.log(data)
             generateAptitudeQuestions( ws);
-        }else if(data.type==='generateSkillQuestions'){
+        }else if(data.type==='generateskillsQuestions'){
+            console.log(data)
             generateSkillQuestions(data.content, ws);
         }else if(data.type==='evaluation'){
             evaluateAnswers(data.content, ws);
+        }else if(data.type==='chat'){
+            console.log(data.content)
+            chatController(data.content, ws);
         }else{
             ws.send('Error: Invalid JSON format');
         }
@@ -39,7 +45,7 @@ wss.on('connection', (ws) => {
     });
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });

@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 
 const generateAptitudeQuestions = (ws) => {
   try {
-    const process = spawn("bash", ["-c", "ollama run gemma_aptitude:latest"]);
+    const process = spawn("bash", ["-c", "ollama run gemma2:2b"]);
     let stdoutBuffer = "";
     let jsonStart = -1;
     let jsonEnd = -1;
@@ -86,7 +86,7 @@ const generateAptitudeQuestions = (ws) => {
 
 const generateSkillQuestions = (message, ws) => {
   try {
-    const process = spawn("bash", ["-c", "ollama run gemma_aptitude:latest"]);
+    const process = spawn("bash", ["-c", "ollama run gemma2:2b"]);
     let stdoutBuffer = "";
     let jsonStart = -1;
     let jsonEnd = -1;
@@ -147,7 +147,7 @@ const generateSkillQuestions = (message, ws) => {
 
     // Send the initial message to the spawned process
     process.stdin.write(
-      `Generate 10 (based on: ${message.skills}) questions in JSON format. Each question should be a separate JSON object with the following fields: "question", "type", "options if type is mcq", and "hint". Format the output as a JSON array of objects . This has to be the JSON format:
+      `Generate 10 (based on: ${message}) questions in JSON format. Each question should be a separate JSON object with the following fields: "question", "type", "options if type is mcq", and "hint". Format the output as a JSON array of objects . This has to be the JSON format:
              {
   question: '<question_text>',
   type: '<mcq>',
